@@ -15,6 +15,8 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-source.tar.gz
 PKG_SOURCE_URL:= https://github.com/OpenPrinting/cups/releases/download/v$(PKG_VERSION)
 PKG_MD5SUM:=ef5f922e5a774b69b30318f440e746ac
 
+PKG_BUILD_DEPENDS := openssl
+
 TARGET_LDFLAGS+=-Wl,-rpath-link=$(STAGING_DIR)/usr/lib
 
 include $(INCLUDE_DIR)/package.mk
@@ -376,6 +378,7 @@ endef
 
 define Build/Configure
 	$(call Build/Configure/Default, \
+        --libdir=/usr/lib \
 		--with-cups-user="nobody" \
 		--with-cups-group="nogroup" \
 		--with-system-groups="root" \
